@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+class Promisa {
+
+	_resolve = () => { console.log(3); };
+	_reject = () => {};
+
+	constructor(func){
+		func(() => {
+			this._resolve();
+		}, () => {
+			this._reject();
+		});
+		return this;
+	}
+
+	then = (func1) => {
+		console.log(2.5);
+		this._resolve = func1;
+	}
+
+	catch = (func2) => {
+		this._reject = func2;
+	}
+}
+
+console.log(1);
+const promesa = new Promisa((resolve, reject) => {
+	try{
+		console.log(2);
+		setTimeout(resolve, 2000);
+	}catch(e){
+		console.log(-1);
+		reject();
+	}
+});
+
+promesa.then(() => {
+	console.log("OK");
+})
+</script>
+</body>
+</html>
